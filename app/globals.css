@@ -245,3 +245,7 @@ body.locked { overflow: hidden; }
 .note.unblur .ub-tag { position: absolute; top: 10px; left: 10px; font-size: 12px; color: #111; background: var(--c); padding: 3px 9px; border-radius: 999px; }
 .note.unblur label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #a9a49a; margin-top: 10px; }
 .note.unblur input { accent-color: var(--c); width: 180px; }
+.note.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; transform: none; }
+.note.stats .stat { border-top: 2px solid var(--c); padding-top: 10px; }
+.note.stats .stat b { display: block; font-family: "Inter Tight", sans-serif; font-weight: 900; font-size: clamp(36px, 4.4vw, 58px); letter-spacing: -0.04em; color: var(--paper); line-height: 1; }
+.note.stats .stat span { font-size: 21px; color: #a9a49a; }
