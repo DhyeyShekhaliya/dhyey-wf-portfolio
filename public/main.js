@@ -4,27 +4,28 @@ import * as THREE from "./vendor/three.module.js";
    CONFIG: everything you'll want to edit lives here.
    ------------------------------------------------------------------ */
 
-// Spoken intro. `t` = seconds after the visitor taps "enter".
-// When the real voice note arrives, re-time these to match it.
-// "*word" = accent colour. `quiet: true` = whispered line (small + grey).
-// `note` = small gloss under the line.
+// Spoken intro, synced to audio/voice.mp3.
+// `t` = seconds after the tap, `d` = how long the line is spoken (words are spread across it).
+// "*word" = accent colour. `quiet: true` = whispered line. `note` = small gloss under the line.
 const SCRIPT = [
-  { t: 1.2,  words: ["Hey,", "hey,", "hey!"] },
-  { t: 3.0,  words: ["Hu", "*Dhyey."], note: "hu (હું) = “I am” in Gujarati" },
-  { t: 5.2,  words: ["Welcome", "to", "my", "*portfolio."] },
-  { t: 7.2,  words: ["In", "these", "past", "years", "I've", "grown", "*so", "*much,"] },
-  { t: 9.9,  words: ["from", "a", "silent,", "introvert", "child…"], quiet: true },
-  { t: 12.1, words: ["into", "what", "you'll", "*see", "in", "a", "sec."] },
-  { t: 14.3, words: ["Come", "with", "*me."] },
+  { t: 1.2,  d: 1.1, words: ["Hey,", "hey,", "hey!"] },
+  { t: 2.8,  d: 0.8, words: ["Hu", "*Dhyey."], note: "hu (હું) = “I am” in Gujarati" },
+  { t: 4.4,  d: 1.6, words: ["Welcome", "to", "my", "*portfolio."] },
+  { t: 6.5,  d: 2.3, words: ["In", "these", "past", "years", "I've", "grown", "*so", "*much,"] },
+  { t: 9.3,  d: 2.1, words: ["from", "a", "silent,", "introvert", "child…"], quiet: true },
+  { t: 11.8, d: 1.5, words: ["into", "what", "you'll", "*see", "in", "a", "sec."] },
+  { t: 13.6, d: 0.7, words: ["Come", "with", "*me."] },
 ];
-const TRANSITION_AT = 16.0;         // when the 2D intro dissolves into 3D
+const VOICE_SRC = "audio/voice.mp3"; // swap for your own recording (keep the timings above in sync)
+const TRANSITION_AT = 14.8;          // circle opens, page goes dark, 3D world begins
+
 // Music timeline (seconds after the tap):
-//   0 to 8   title song, part 1 (bg.mp3)
-//   8 to 17  title song, part 2 (bg2.mp3), clean cut at 8 s
-//   14 on    slow ambient loop fades in, full by 17 s as the 3D world opens
+//   0 to 8        title song, part 1 (bg.mp3)
+//   8 to "me."    title song, part 2 (bg2.mp3), clean cut at 8 s
+//   TRANSITION_AT slow ambient loop fades in with the dark 3D world
 const SONG_SECONDS = 8;
-const AMBIENT_AT = 14;
-const VOICE_SRC = null;             // e.g. "audio/voice.mp3" once recorded
+const SONG_VOLUME = 0.35;            // kept under the voice
+const AMBIENT_VOLUME = 0.22;
 
 // Life stops along the 3D path (placeholder copy, swap with the real stories).
 const STAGES = [
@@ -33,7 +34,7 @@ const STAGES = [
   { at: 0.44, kind: "chance",    year: "CH. 03", title: "The first big chance", text: "The bet nobody asked me to take.",                  color: 0xff4d1f },
   { at: 0.61, kind: "mistake",   year: "CH. 04", title: "The mistakes",       text: "What broke, and what I rebuilt from the pieces.",     color: 0xd7263d },
   { at: 0.78, kind: "built",     year: "CH. 05", title: "Things I've built",  text: "Shipped, not just planned.",                          color: 0x19c37d },
-  { at: 0.95, kind: "final",     year: "NOW",    title: "Let's build something.", text: "Your turn, Wispr Flow.",                          color: 0x0b0b0c },
+  { at: 0.95, kind: "final",     year: "NOW",    title: "Let's build something.", text: "Your turn, Wispr Flow.",                          color: 0xf6f4ef },
 ];
 
 const AUTO = new URLSearchParams(location.search).has("auto"); // ?auto = hands-free, for recording
@@ -42,8 +43,8 @@ const AUTO_TOUR_SECONDS = 22;
 /* ------------------------------------------------------------------ */
 
 const $ = (s) => document.querySelector(s);
-const gate = $("#gate"), intro = $("#intro"), caption = $("#caption"), pill = $("#pill");
-const bg = $("#bg"), bg2 = $("#bg2"), amb = $("#amb");
+const gate = $("#gate"), intro = $("#intro"), caption = $("#caption"), ring = $("#ring");
+const bg = $("#bg"), bg2 = $("#bg2"), amb = $("#amb"), voice = $("#voice");
 document.body.classList.add("locked");
 window.scrollTo(0, 0);
 
@@ -56,32 +57,25 @@ function start() {
   started = true;
   // Unlock every track inside the tap so mobile browsers allow later playback.
   [bg2, amb].forEach((a) => { a.muted = true; a.play().then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => {}); });
-  bg.volume = 0.55;
+  bg.volume = SONG_VOLUME;
   bg.play().catch(() => {});
+  if (VOICE_SRC) { voice.src = VOICE_SRC; voice.play().catch(() => {}); }
   gsap.delayedCall(SONG_SECONDS, () => {
     bg.pause();
-    bg2.volume = 0.55;
+    bg2.volume = SONG_VOLUME;
     bg2.currentTime = 0;
     bg2.play().catch(() => {});
   });
-  gsap.delayedCall(AMBIENT_AT, () => {
-    amb.volume = 0;
-    amb.currentTime = 0;
-    amb.play().catch(() => {});
-    gsap.to(amb, { volume: 0.22, duration: 3, ease: "sine.inOut" });
-  });
-  if (VOICE_SRC) new Audio(VOICE_SRC).play().catch(() => {});
 
   const tl = gsap.timeline();
   tl.to(gate, { opacity: 0, duration: 0.6, onComplete: () => (gate.style.display = "none") }, 0)
-    .to(intro, { backgroundColor: "#f6f4ef", duration: 1.4, ease: "power2.inOut" }, 0.2)
-    .to(pill, { opacity: 1, y: 0, x: "-50%", duration: 0.6, ease: "back.out(2)", onStart: () => pill.classList.add("on") }, 0.8);
+    .to(intro, { backgroundColor: "#f6f4ef", duration: 1.0, ease: "power2.inOut" }, 0.2);
 
   SCRIPT.forEach((line) => tl.call(() => showLine(line), null, line.t));
   tl.call(toWorld, null, TRANSITION_AT);
 }
 
-function showLine({ words, quiet, note }) {
+function showLine({ words, quiet, note, d = 1.2 }) {
   caption.innerHTML = "";
   caption.classList.toggle("quiet", !!quiet);
   const els = words.map((raw) => {
@@ -91,37 +85,54 @@ function showLine({ words, quiet, note }) {
     caption.appendChild(s);
     return s;
   });
-  gsap.to(els, { opacity: 1, y: 0, duration: quiet ? 0.6 : 0.35, ease: "power3.out", stagger: quiet ? 0.28 : 0.16 });
+  // spread the words across the spoken duration so text follows the voice
+  const stagger = (d * 0.85) / Math.max(1, words.length);
+  gsap.to(els, { opacity: 1, y: 0, duration: quiet ? 0.5 : 0.3, ease: "power3.out", stagger });
   if (note) {
     const n = document.createElement("div");
     n.className = "note mono";
     n.textContent = note;
     caption.appendChild(n);
-    gsap.fromTo(n, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.6 });
+    gsap.fromTo(n, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.5 });
   }
 }
 
+// Circle opens from the centre: the white page is cut away by a growing hole,
+// revealing the dark 3D world underneath. A thin orange ring rides the edge.
 function toWorld() {
-  pill.classList.remove("on");
-  $("#pill-label").textContent = "scroll to walk";
+  amb.volume = 0;
+  amb.currentTime = 0;
+  amb.play().catch(() => {});
+  gsap.to(amb, { volume: AMBIENT_VOLUME, duration: 3, ease: "sine.inOut" });
+
+  const maxR = Math.hypot(innerWidth, innerHeight) / 2 + 20;
+  const iris = { r: 0 };
+  const draw = () => {
+    const m = `radial-gradient(circle at 50% 50%, transparent ${iris.r}px, #000 ${iris.r + 1}px)`;
+    intro.style.webkitMaskImage = m;
+    intro.style.maskImage = m;
+    ring.style.width = ring.style.height = iris.r * 2 + "px";
+  };
   const tl = gsap.timeline();
-  tl.to(caption, { scale: 6, opacity: 0, duration: 1.1, ease: "power3.in" }, 0)
-    .to(intro, { opacity: 0, duration: 1.0, ease: "power2.inOut", onComplete: () => (intro.style.display = "none") }, 0.5)
-    .to(cam, { rise: 0, duration: 2.6, ease: "power3.inOut" }, 0.4)
-    .to("#hud", { opacity: 1, duration: 0.8 }, 1.8)
+  tl.to(caption, { opacity: 0, scale: 0.92, duration: 0.45, ease: "power2.in" }, 0)
+    .set(ring, { opacity: 1 }, 0.35)
+    .to(iris, { r: 6, duration: 0.25, ease: "power2.out", onUpdate: draw }, 0.35)
+    .to(iris, { r: maxR, duration: 1.5, ease: "expo.inOut", onUpdate: draw }, 0.75)
+    .to(ring, { opacity: 0, duration: 0.4 }, 1.95)
+    .set(intro, { display: "none" }, 2.3)
+    .to(cam, { rise: 0, duration: 2.8, ease: "power3.inOut" }, 0.9)
+    .to("#hud", { opacity: 1, duration: 0.8 }, 2.4)
     .call(() => {
       document.body.classList.remove("locked");
       worldLive = true;
       tourStart = performance.now();
-      if (AUTO) gsap.to(pill, { opacity: 0, duration: 0.6 });
-    }, null, 2.2)
-    .to(pill, { opacity: AUTO ? 0 : 1, duration: 0.3 }, 2.2);
+    }, null, 2.6);
 }
 
 /* ------------------------------------------------------------------
    3D WORLD
    ------------------------------------------------------------------ */
-const PAPER = 0xf6f4ef, INK = 0x0b0b0c;
+const PAPER = 0xf6f4ef, INK = 0x0b0b0c, NIGHT = 0x0a0a0c;
 const canvas = $("#world");
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -129,13 +140,13 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(PAPER);
-scene.fog = new THREE.Fog(PAPER, 12, 48);
+scene.background = new THREE.Color(NIGHT);
+scene.fog = new THREE.Fog(NIGHT, 12, 48);
 
 const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
 const cam = { rise: 1 }; // 1 = high bird's-eye at start, 0 = walking height
 
-scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d2c3, 1.6));
+scene.add(new THREE.HemisphereLight(0xbfc6ff, 0x1a1410, 1.1));
 const sun = new THREE.DirectionalLight(0xffffff, 2.2);
 sun.position.set(8, 18, 6);
 sun.castShadow = true;
@@ -146,12 +157,12 @@ scene.add(sun, sun.target);
 // ground
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(400, 400),
-  new THREE.MeshStandardMaterial({ color: PAPER, roughness: 1 })
+  new THREE.MeshStandardMaterial({ color: 0x111114, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
-const grid = new THREE.GridHelper(400, 200, 0xd8d3c8, 0xe6e2d9);
+const grid = new THREE.GridHelper(400, 200, 0x24242a, 0x18181c);
 grid.position.y = 0.01;
 scene.add(grid);
 
@@ -165,7 +176,7 @@ for (let i = 0; i <= 14; i++) {
 const curve = new THREE.CatmullRomCurve3(pts);
 const path = new THREE.Mesh(
   new THREE.TubeGeometry(curve, 400, 0.06, 8, false),
-  new THREE.MeshBasicMaterial({ color: INK })
+  new THREE.MeshBasicMaterial({ color: PAPER })
 );
 path.position.y = 0.05;
 scene.add(path);
@@ -255,7 +266,7 @@ function build(s, g) {
     case "mistake": {
       const shards = [];
       for (let k = 0; k < 14; k++) {
-        const m = new THREE.Mesh(new THREE.TetrahedronGeometry(0.35 + Math.random() * 0.3), mat(k % 3 ? c : INK));
+        const m = new THREE.Mesh(new THREE.TetrahedronGeometry(0.35 + Math.random() * 0.3), mat(k % 3 ? c : PAPER));
         const dir = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.3, Math.random() - 0.5).normalize();
         m.userData = { dir, spin: Math.random() * 3 };
         g.add(m);
@@ -294,7 +305,7 @@ function build(s, g) {
     case "final": {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.18, 16, 80), mat(0xff4d1f, { emissive: 0xff4d1f, emissiveIntensity: 0.25 }));
       ring.position.y = 2.6;
-      const core = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat(INK));
+      const core = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat(PAPER));
       core.position.y = 2.6;
       g.add(ring, core);
       anims.push((t) => {
@@ -317,7 +328,7 @@ const labelEls = STAGES.map((s) => {
 });
 
 // floating confetti specks for depth
-const specks = new THREE.InstancedMesh(new THREE.BoxGeometry(0.08, 0.08, 0.08), new THREE.MeshBasicMaterial({ color: INK }), 300);
+const specks = new THREE.InstancedMesh(new THREE.BoxGeometry(0.08, 0.08, 0.08), new THREE.MeshBasicMaterial({ color: PAPER }), 300);
 const tmp = new THREE.Object3D();
 for (let i = 0; i < 300; i++) {
   tmp.position.set((Math.random() - 0.5) * 40, Math.random() * 10 + 0.5, -Math.random() * (LEN + 10));

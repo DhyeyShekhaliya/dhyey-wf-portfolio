@@ -45,22 +45,12 @@ body.locked { overflow: hidden; }
   background: var(--accent); transform: scaleX(var(--s, 0)); transform-origin: left;
 }
 
-/* Dictation pill */
-#pill {
-  position: fixed; left: 50%; bottom: 28px; z-index: 45; transform: translate(-50%, 30px);
-  display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px;
-  background: var(--ink); color: #fff; font-size: 12px; opacity: 0; letter-spacing: .05em;
+/* Circle reveal */
+#ring {
+  position: fixed; left: 50%; top: 50%; z-index: 41; width: 0; height: 0; opacity: 0;
+  transform: translate(-50%, -50%); border-radius: 50%; border: 2px solid var(--accent);
+  pointer-events: none; box-shadow: 0 0 40px rgba(255, 77, 31, .35);
 }
-#pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; }
-@keyframes pulse { 50% { opacity: .3; } }
-#pill .bars { display: flex; gap: 2px; align-items: center; height: 14px; }
-#pill .bars i { width: 2px; background: #fff; height: 4px; border-radius: 1px; }
-#pill.on .bars i { animation: eq .5s ease-in-out infinite alternate; }
-#pill.on .bars i:nth-child(2) { animation-delay: .1s; }
-#pill.on .bars i:nth-child(3) { animation-delay: .25s; }
-#pill.on .bars i:nth-child(4) { animation-delay: .05s; }
-#pill.on .bars i:nth-child(5) { animation-delay: .3s; }
-@keyframes eq { to { height: 14px; } }
 
 /* Scene 3 */
 #world { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; display: block; }
@@ -70,17 +60,16 @@ body.locked { overflow: hidden; }
   opacity: 0; transition: opacity .4s;
 }
 .label .yr { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .12em; color: var(--accent); }
-.label h3 { font-size: clamp(22px, 3vw, 40px); font-weight: 900; letter-spacing: -0.03em; }
-.label p { font-size: 14px; color: #555; max-width: 30ch; white-space: normal; margin: 4px auto 0; }
+.label h3 { color: var(--paper); font-size: clamp(22px, 3vw, 40px); font-weight: 900; letter-spacing: -0.03em; }
+.label p { font-size: 14px; color: #a7a39b; max-width: 30ch; white-space: normal; margin: 4px auto 0; }
 #hud {
   position: fixed; top: 22px; left: 24px; right: 24px; z-index: 6; display: flex; justify-content: space-between;
-  align-items: center; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: 0;
+  align-items: center; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: 0; color: var(--paper);
 }
-#progress { width: 140px; height: 2px; background: #0002; position: relative; }
+#progress { width: 140px; height: 2px; background: #fff2; position: relative; }
 #progress b { position: absolute; inset: 0; width: 0; background: var(--accent); }
 #scroll-space { height: 900vh; }
 
 @media (max-width: 640px) {
   .label p { display: none; }
-  #pill { bottom: 18px; }
 }
