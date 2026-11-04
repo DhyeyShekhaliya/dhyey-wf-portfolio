@@ -278,3 +278,5 @@ body.locked { overflow: hidden; }
 .fallback-links a { color: #f2f2ee; text-underline-offset: 3px; }
 #enter:disabled { cursor: progress; opacity: .75; animation: none; }
 #enter:disabled::before, #enter:disabled::after { animation: none; opacity: 0; }
+/* real photos keep their own shape (most are portrait); placeholders stay 4:3 */
+.note.photo img { aspect-ratio: auto; height: auto; max-height: 360px; object-fit: cover; object-position: center 30%; display: block; }
