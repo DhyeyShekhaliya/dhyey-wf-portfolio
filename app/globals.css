@@ -229,3 +229,4 @@ body.locked { overflow: hidden; }
 #hud.nav { font-size: 13px; font-weight: 500; letter-spacing: .06em; }
 #prompt.nav { font-size: 14px; font-weight: 500; letter-spacing: .01em; }
 .board-tools.nav button { font-size: 13px; font-weight: 500; letter-spacing: .01em; }
+.gate-note { font-size: 13px; font-weight: 500; letter-spacing: .02em; color: #6f6b66; margin-top: -6px; }

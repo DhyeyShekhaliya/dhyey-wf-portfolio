@@ -21,6 +21,7 @@ export default function Home() {
           <button id="enter">
             tap to enter<span className="caret">_</span>
           </button>
+          <p className="gate-note">💻 best experienced on desktop</p>
         </div>
       </section>
 
