@@ -18,8 +18,9 @@ export default function Home() {
       <section id="gate">
         <div className="gate-inner">
           <p className="dim">🎧 headphones on</p>
-          <button id="enter">
-            tap to enter<span className="caret">_</span>
+          {/* starts as "loading"; lib/intro.js enables it the moment its click handler exists */}
+          <button id="enter" disabled>
+            loading<span className="caret">_</span>
           </button>
           <p className="gate-note">💻 best experienced on desktop</p>
         </div>

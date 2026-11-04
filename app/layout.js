@@ -1,8 +1,13 @@
 import "./globals.css";
 
+const description = "An interactive walk through Dhyey's story, from a silent introvert kid to AI research. Built for Wispr Flow India.";
+
 export const metadata = {
   title: "Dhyey · Walk Through It",
-  description: "An interactive walk through Dhyey's story, from a silent introvert kid to AI research. Built for Wispr Flow India.",
+  description,
+  // link previews (WhatsApp, LinkedIn, Slack): the image is app/opengraph-image.png
+  openGraph: { title: "Dhyey · Walk Through It", description, type: "website" },
+  twitter: { card: "summary_large_image", title: "Dhyey · Walk Through It", description },
 };
 
 export const viewport = { width: "device-width", initialScale: 1, themeColor: "#000000" };
