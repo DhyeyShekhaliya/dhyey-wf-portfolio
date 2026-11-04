@@ -18,7 +18,12 @@ const SCRIPT = [
   { t: 14.3, words: ["Come", "with", "*me."] },
 ];
 const TRANSITION_AT = 16.0;         // when the 2D intro dissolves into 3D
-const SONG_SECONDS = 8;            // title song plays this long, then the slow ambient loop takes over
+// Music timeline (seconds after the tap):
+//   0 to 8   title song, part 1 (bg.mp3)
+//   8 to 17  title song, part 2 (bg2.mp3), clean cut at 8 s
+//   14 on    slow ambient loop fades in, full by 17 s as the 3D world opens
+const SONG_SECONDS = 8;
+const AMBIENT_AT = 14;
 const VOICE_SRC = null;             // e.g. "audio/voice.mp3" once recorded
 
 // Life stops along the 3D path (placeholder copy, swap with the real stories).
@@ -38,7 +43,7 @@ const AUTO_TOUR_SECONDS = 22;
 
 const $ = (s) => document.querySelector(s);
 const gate = $("#gate"), intro = $("#intro"), caption = $("#caption"), pill = $("#pill");
-const bg = $("#bg"), amb = $("#amb");
+const bg = $("#bg"), bg2 = $("#bg2"), amb = $("#amb");
 document.body.classList.add("locked");
 window.scrollTo(0, 0);
 
@@ -49,17 +54,21 @@ if (AUTO) document.addEventListener("keydown", (e) => e.key === "Enter" && start
 function start() {
   if (started) return;
   started = true;
-  bg.volume = 0;
+  // Unlock every track inside the tap so mobile browsers allow later playback.
+  [bg2, amb].forEach((a) => { a.muted = true; a.play().then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => {}); });
+  bg.volume = 0.55;
   bg.play().catch(() => {});
-  gsap.to(bg, { volume: 0.55, duration: 1.5 });
-  // hand-off: song fades out at 8 s, ambient loop fades in underneath
-  // (ambient starts silently on the tap itself so mobile browsers allow it)
-  amb.volume = 0;
-  amb.play().catch(() => {});
-  gsap.delayedCall(SONG_SECONDS - 1.5, () => {
+  gsap.delayedCall(SONG_SECONDS, () => {
+    bg.pause();
+    bg2.volume = 0.55;
+    bg2.currentTime = 0;
+    bg2.play().catch(() => {});
+  });
+  gsap.delayedCall(AMBIENT_AT, () => {
+    amb.volume = 0;
     amb.currentTime = 0;
-    gsap.to(amb, { volume: 0.45, duration: 3 });
-    gsap.to(bg, { volume: 0, duration: 1.5, onComplete: () => bg.pause() });
+    amb.play().catch(() => {});
+    gsap.to(amb, { volume: 0.22, duration: 3, ease: "sine.inOut" });
   });
   if (VOICE_SRC) new Audio(VOICE_SRC).play().catch(() => {});
 
