@@ -235,3 +235,8 @@ body.locked { overflow: hidden; }
 .type, .type button { font-family: "Special Elite", "Courier New", monospace; }
 .board-tools.type button { font-size: 14px; letter-spacing: .02em; padding: 8px 15px; }
 #prompt.type { font-size: 15px; letter-spacing: .01em; }
+.note.badge { justify-self: start; display: inline-flex; align-items: center; gap: 14px; padding: 10px 18px 10px 12px;
+  border-radius: 999px; background: color-mix(in srgb, var(--c) 18%, transparent); border: 1.5px solid var(--c);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--c) 35%, transparent); transform: none; }
+.note.badge .b-label { font-size: 13px; color: #111; background: var(--c); padding: 4px 10px; border-radius: 999px; }
+.note.badge .b-text { font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; letter-spacing: -0.01em; color: var(--paper); }
