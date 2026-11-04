@@ -240,3 +240,8 @@ body.locked { overflow: hidden; }
   box-shadow: 0 0 28px color-mix(in srgb, var(--c) 35%, transparent); transform: none; }
 .note.badge .b-label { font-size: 13px; color: #111; background: var(--c); padding: 4px 10px; border-radius: 999px; }
 .note.badge .b-text { font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; letter-spacing: -0.01em; color: var(--paper); }
+.note.unblur .ub-frame { position: relative; overflow: hidden; border-radius: 10px; border: 2px solid rgba(246,244,239,.25); max-width: 380px; }
+.note.unblur .ub-img { display: block; width: 100%; height: auto; transform: scale(1.06); transition: filter .08s linear; }
+.note.unblur .ub-tag { position: absolute; top: 10px; left: 10px; font-size: 12px; color: #111; background: var(--c); padding: 3px 9px; border-radius: 999px; }
+.note.unblur label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #a9a49a; margin-top: 10px; }
+.note.unblur input { accent-color: var(--c); width: 180px; }
