@@ -36,7 +36,7 @@ export default function Home() {
       <canvas id="world"></canvas>
 
       {/* "open board" prompt when standing at a stop */}
-      <button id="prompt" className="mono">
+      <button id="prompt" className="nav">
         <b>✎</b> <span></span> <em>open board</em>
       </button>
 
@@ -53,7 +53,7 @@ export default function Home() {
             </marker>
           </defs>
         </svg>
-        <div className="board-tools mono">
+        <div className="board-tools nav">
           <button data-draw="" aria-pressed="false">✎ draw on it</button>
           <button data-erase="">erase</button>
           <button data-close="">close ✕</button>
@@ -62,9 +62,9 @@ export default function Home() {
         <canvas id="chalkpad"></canvas>
       </section>
 
-      <div id="hud" className="mono">
+      <div id="hud" className="nav">
         <span id="stage-name"></span>
-        <span className="mono hint">scroll or ← → to walk · click a board</span>
+        <span className="hint">scroll or ← → to walk · click a board</span>
         <span id="progress">
           <b></b>
         </span>

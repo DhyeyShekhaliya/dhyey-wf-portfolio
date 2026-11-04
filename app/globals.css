@@ -223,3 +223,9 @@ body.locked { overflow: hidden; }
   .note { transform: none; }
 }
 .sketch .cooltext { fill: #6fb6ff; } .sketch .warmtext { fill: #ff8a3c; }
+
+/* top navigation + buttons: Space Grotesk (Google Fonts) */
+.nav, .nav button { font-family: "Space Grotesk", "Inter Tight", system-ui, sans-serif; }
+#hud.nav { font-size: 13px; font-weight: 500; letter-spacing: .06em; }
+#prompt.nav { font-size: 14px; font-weight: 500; letter-spacing: .01em; }
+.board-tools.nav button { font-size: 13px; font-weight: 500; letter-spacing: .01em; }
