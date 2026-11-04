@@ -222,3 +222,4 @@ body.locked { overflow: hidden; }
   #hud .hint { display: none; }
   .note { transform: none; }
 }
+.sketch .cooltext { fill: #6fb6ff; } .sketch .warmtext { fill: #ff8a3c; }
