@@ -14,7 +14,8 @@ Tap in, hear the intro, then walk a dark 3D path where every stop is a chalkboar
 3. **Circle reveal:** on "Come with me", a circle opens and the page goes dark.
 4. **3D walk:** first-person path with a chalkboard at each life stop. Scroll or use ← → to walk; scrolling glides to the nearest stop.
 5. **Whiteboards:** click a board to open it full screen: chalk diagrams, flip cards, a Fourier demo, links, and a "draw on it" mode.
-6. **Billboard:** "Let's build / create / design / think something." with contact links.
+6. **Byte, the pet:** a little robot pup trots along with you. Click it for voice games: say *sit, jump, spin, roll over, speak, dance* or *good boy*, or try the **speed round**, which times you reading a sentence aloud against average typing speed (~40 WPM). Uses the browser's built-in speech recognition (Chrome, Edge, Safari); on other browsers the tricks are tap buttons.
+7. **Billboard:** "Let's build / create / design / think something." with contact links.
 
 ## Run it
 
@@ -45,6 +46,7 @@ After that, every push to `main` redeploys, and every pull request gets its own 
 | Intro lines, timings, music and voice settings | top of `lib/intro.js` |
 | 3D world (path, boards, props, billboard) | `lib/world.js` |
 | Whiteboard behaviour (flip cards, drawing, Fourier demo) | `lib/board.js` |
+| Byte the pet (model, tricks) / voice games (commands, phrases) | `lib/pet.js` / `lib/petgame.js` |
 | Styles | `app/globals.css` |
 | Audio / photos | `public/audio/`, `public/img/` |
 | Link-preview image and tab icon | `app/opengraph-image.png`, `app/icon.svg` |

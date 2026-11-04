@@ -47,6 +47,30 @@ export default function Home() {
         <b>✎</b> <span></span> <em>open board</em>
       </button>
 
+      {/* Byte, the pet: hint bubble + voice panel */}
+      <div id="pet-bubble" className="type" aria-hidden="true">psst, click me 🎙</div>
+      <section id="petpanel" aria-hidden="true" role="dialog" aria-label="Play with Byte" data-mode="tricks">
+        <header className="pp-head">
+          <div>
+            <span className="type pp-kicker">Byte · voice games</span>
+            <h3 className="hand">Talk to Byte.</h3>
+          </div>
+          <button id="pp-close" className="type" aria-label="Close">✕</button>
+        </header>
+        <div className="pp-tabs nav" role="tablist">
+          <button data-tab="tricks" role="tab" aria-selected="true">tricks</button>
+          <button data-tab="speed" role="tab" aria-selected="false">speed round</button>
+        </div>
+        <p id="pp-status" className="nav">Tap the mic and give Byte a command:</p>
+        <p id="pp-phrase" className="hand"></p>
+        <button id="pp-mic" className="nav" aria-label="Start talking"><span>🎙</span></button>
+        <p id="pp-heard" className="type" aria-live="polite"></p>
+        <div id="pp-cmds" className="type"></div>
+        <div id="pp-result" className="nav" aria-live="polite"></div>
+        <button id="pp-new" className="type">new phrase ↻</button>
+        <p className="pp-note nav">Speech is recognised by your browser&apos;s built-in voice service.</p>
+      </section>
+
       {/* The scientist's whiteboard */}
       <section id="board" aria-hidden="true" role="dialog" aria-label="Whiteboard">
         <svg width="0" height="0" style={{ position: "absolute" }}>
