@@ -17,8 +17,8 @@ export default function Home() {
       {/* Scene 0: gate */}
       <section id="gate">
         <div className="gate-inner">
-          <p className="mono dim">🎧 headphones on</p>
-          <button id="enter" className="mono">
+          <p className="dim">🎧 headphones on</p>
+          <button id="enter">
             tap to enter<span className="caret">_</span>
           </button>
         </div>
