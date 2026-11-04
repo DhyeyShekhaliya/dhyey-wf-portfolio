@@ -145,7 +145,7 @@ body.locked { overflow: hidden; }
 .board-tools button:hover, .board-tools [aria-pressed="true"] { border-color: var(--c); color: var(--c); }
 
 .b-head { max-width: 900px; margin-bottom: 28px; }
-.b-ch { color: var(--c); font-size: 12px; letter-spacing: .14em; }
+.b-ch { color: var(--c); font-size: 15px; letter-spacing: .08em; }
 .b-head h2 { font-size: clamp(48px, 7vw, 96px); line-height: .95; font-weight: 700; margin-top: 6px; }
 .b-head .underline { width: min(420px, 70%); height: 14px; display: block; }
 
@@ -230,3 +230,8 @@ body.locked { overflow: hidden; }
 #prompt.nav { font-size: 14px; font-weight: 500; letter-spacing: .01em; }
 .board-tools.nav button { font-size: 13px; font-weight: 500; letter-spacing: .01em; }
 .gate-note { font-size: 13px; font-weight: 500; letter-spacing: .02em; color: #6f6b66; margin-top: -6px; }
+
+/* lab-notebook typewriter: board labels, board buttons, "open board" prompt */
+.type, .type button { font-family: "Special Elite", "Courier New", monospace; }
+.board-tools.type button { font-size: 14px; letter-spacing: .02em; padding: 8px 15px; }
+#prompt.type { font-size: 15px; letter-spacing: .01em; }

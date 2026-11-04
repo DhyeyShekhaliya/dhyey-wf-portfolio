@@ -37,7 +37,7 @@ export default function Home() {
       <canvas id="world"></canvas>
 
       {/* "open board" prompt when standing at a stop */}
-      <button id="prompt" className="nav">
+      <button id="prompt" className="type">
         <b>✎</b> <span></span> <em>open board</em>
       </button>
 
@@ -54,7 +54,7 @@ export default function Home() {
             </marker>
           </defs>
         </svg>
-        <div className="board-tools nav">
+        <div className="board-tools type">
           <button data-draw="" aria-pressed="false">✎ draw on it</button>
           <button data-erase="">erase</button>
           <button data-close="">close ✕</button>
