@@ -262,3 +262,31 @@ body.locked { overflow: hidden; }
 .note.shot .browser i { width: 10px; height: 10px; border-radius: 50%; background: #4a4d55; }
 .note.shot .browser span { margin-left: 10px; font-size: 12px; color: #a9a49a; background: #15181b; padding: 3px 12px; border-radius: 999px; }
 .note.shot img { display: block; width: 100%; height: auto; border: 1px solid rgba(255,255,255,.12); border-radius: 0 0 10px 10px; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+
+/* sound toggle */
+#mute {
+  position: fixed; top: 16px; right: 20px; z-index: 60; display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); cursor: pointer;
+  background: rgba(14,14,16,.78); color: #f2f2ee; font-size: 13px; font-weight: 500; backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none; transition: opacity .4s, border-color .2s;
+}
+#mute.show { opacity: 1; pointer-events: auto; }
+#mute:hover, #mute:focus-visible { border-color: var(--accent); outline: none; }
+#mute[aria-pressed="true"] .lb { color: #a9a49a; }
+#hud { right: 160px; }
+#board.open ~ #mute, body:has(#board.open) #mute { opacity: 0; pointer-events: none; }
+@media (max-width: 640px) { #mute .lb { display: none; } #hud { right: 76px; } }
+
+/* finale hero, after the old portfolio */
+.note.morph { transform: none; }
+.m-head {
+  font-family: "Bricolage Grotesque", "Inter Tight", sans-serif; font-weight: 800; color: #f2f2ee;
+  font-size: clamp(64px, 11vw, 150px); line-height: .88; letter-spacing: -0.035em;
+}
+.m-word { position: relative; display: inline-block; filter: url(#goo); min-width: 4ch; }
+.m-word span { display: inline-block; }
+.m-word .m-b { position: absolute; left: 0; top: 0; }
+.m-dot { display: inline-block; width: .2em; height: .2em; border-radius: .05em; background: #d1343d; margin-left: .04em; }
+.m-text { font-size: 18px; line-height: 1.6; color: #a9a6a0; max-width: 46ch; margin: 28px 0 26px; }
+.m-cta { display: inline-block; background: #d1343d; color: #111; text-decoration: none; padding: 14px 24px; border-radius: 999px; font-size: 15px; transition: transform .2s, box-shadow .2s; }
+.m-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(209,52,61,.4); }

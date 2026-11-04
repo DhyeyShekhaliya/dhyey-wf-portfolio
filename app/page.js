@@ -30,6 +30,11 @@ export default function Home() {
         <div id="caption"></div>
       </section>
 
+      {/* Sound toggle */}
+      <button id="mute" className="nav" aria-pressed="false" aria-label="Mute sound">
+        <span className="ic">🔊</span> <span className="lb">sound on</span>
+      </button>
+
       {/* Circle-reveal ring */}
       <div id="ring"></div>
 
@@ -45,6 +50,9 @@ export default function Home() {
       <section id="board" aria-hidden="true" role="dialog" aria-label="Whiteboard">
         <svg width="0" height="0" style={{ position: "absolute" }}>
           <defs>
+            <filter id="goo">
+              <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 255 -140" />
+            </filter>
             <filter id="chalk">
               <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" result="n" />
               <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" />

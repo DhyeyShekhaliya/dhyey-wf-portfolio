@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Special+Elite&family=Space+Grotesk:wght@400;500;600&family=Inter+Tight:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Caveat:wght@500;700&family=Special+Elite&family=Space+Grotesk:wght@400;500;600&family=Inter+Tight:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
