@@ -1,0 +1,17 @@
+{
+  "name": "dhyey-wf-portfolio",
+  "version": "1.0.0",
+  "description": "Dhyey's interactive story portfolio for Wispr Flow India",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx http-server public -p 5173 -c-1",
+    "start": "npx http-server public -p 5173"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.160.0"
+  }
+}

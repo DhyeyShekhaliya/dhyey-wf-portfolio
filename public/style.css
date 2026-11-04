@@ -1,0 +1,86 @@
+:root {
+  --ink: #0b0b0c;
+  --paper: #f6f4ef;
+  --accent: #ff4d1f;
+  --dim: #8a8a8a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; color: var(--ink); font-family: "Inter Tight", system-ui, sans-serif; overflow-x: hidden; }
+body.locked { overflow: hidden; }
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+.dim { color: #6b6b6b; }
+
+/* Scene 0 */
+#gate {
+  position: fixed; inset: 0; z-index: 50; background: #000;
+  display: grid; place-items: center; color: #eee;
+}
+.gate-inner { text-align: center; display: grid; gap: 18px; }
+#enter {
+  background: none; border: 1px solid #333; color: #fff; font-size: 18px;
+  padding: 14px 26px; border-radius: 999px; cursor: pointer; letter-spacing: .04em;
+  transition: border-color .3s, background .3s;
+}
+#enter:hover { border-color: var(--accent); background: #111; }
+.caret { animation: blink 1s steps(1) infinite; color: var(--accent); }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Scene 1 */
+#intro {
+  position: fixed; inset: 0; z-index: 40; background: #000;
+  display: grid; place-items: center; padding: 0 6vw; pointer-events: none;
+}
+#caption {
+  font-weight: 900; letter-spacing: -0.04em; line-height: .95;
+  font-size: clamp(44px, 9vw, 150px); text-align: center; max-width: 14ch;
+}
+#caption .w { display: inline-block; opacity: 0; transform: translateY(0.35em); margin: 0 .12em; }
+#caption .w.hl { color: var(--accent); }
+#caption { transition: font-size .4s ease; }
+#caption.quiet { font-size: clamp(18px, 2.4vw, 32px); font-weight: 400; letter-spacing: 0; color: #9a9690; font-style: italic; }
+#caption .note { font-size: 14px; font-weight: 400; letter-spacing: .04em; color: #8a8a8a; margin-top: 22px; }
+#caption .w.strike { position: relative; }
+#caption .w.strike::after {
+  content: ""; position: absolute; left: -2%; right: -2%; top: 55%; height: .09em;
+  background: var(--accent); transform: scaleX(var(--s, 0)); transform-origin: left;
+}
+
+/* Dictation pill */
+#pill {
+  position: fixed; left: 50%; bottom: 28px; z-index: 45; transform: translate(-50%, 30px);
+  display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px;
+  background: var(--ink); color: #fff; font-size: 12px; opacity: 0; letter-spacing: .05em;
+}
+#pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+#pill .bars { display: flex; gap: 2px; align-items: center; height: 14px; }
+#pill .bars i { width: 2px; background: #fff; height: 4px; border-radius: 1px; }
+#pill.on .bars i { animation: eq .5s ease-in-out infinite alternate; }
+#pill.on .bars i:nth-child(2) { animation-delay: .1s; }
+#pill.on .bars i:nth-child(3) { animation-delay: .25s; }
+#pill.on .bars i:nth-child(4) { animation-delay: .05s; }
+#pill.on .bars i:nth-child(5) { animation-delay: .3s; }
+@keyframes eq { to { height: 14px; } }
+
+/* Scene 3 */
+#world { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; display: block; }
+#labels { position: fixed; inset: 0; z-index: 5; pointer-events: none; }
+.label {
+  position: absolute; transform: translate(-50%, -100%); text-align: center; white-space: nowrap;
+  opacity: 0; transition: opacity .4s;
+}
+.label .yr { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .12em; color: var(--accent); }
+.label h3 { font-size: clamp(22px, 3vw, 40px); font-weight: 900; letter-spacing: -0.03em; }
+.label p { font-size: 14px; color: #555; max-width: 30ch; white-space: normal; margin: 4px auto 0; }
+#hud {
+  position: fixed; top: 22px; left: 24px; right: 24px; z-index: 6; display: flex; justify-content: space-between;
+  align-items: center; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: 0;
+}
+#progress { width: 140px; height: 2px; background: #0002; position: relative; }
+#progress b { position: absolute; inset: 0; width: 0; background: var(--accent); }
+#scroll-space { height: 900vh; }
+
+@media (max-width: 640px) {
+  .label p { display: none; }
+  #pill { bottom: 18px; }
+}
