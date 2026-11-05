@@ -14,7 +14,7 @@ Tap in, hear the intro, then walk a dark 3D path where every stop is a chalkboar
 3. **Circle reveal:** on "Come with me", a circle opens and the page goes dark.
 4. **3D walk:** first-person path with a chalkboard at each life stop. Scroll or use ← → to walk; scrolling glides to the nearest stop.
 5. **Whiteboards:** click a board to open it full screen: chalk diagrams, flip cards, a Fourier demo, links, and a "draw on it" mode.
-6. **Byte, the pet:** a little robot pup trots along with you. Click it for voice games: say *sit, jump, spin, roll over, speak, dance* or *good boy*, or try the **speed round**, which times you reading a sentence aloud against average typing speed (~40 WPM). Uses the browser's built-in speech recognition (Chrome, Edge, Safari); on other browsers the tricks are tap buttons.
+6. **Byte, the pet:** a little robot pup trots along with you. Click it for voice games: say *sit, jump, spin, roll over, speak, dance* or *good boy*, or try the **speed round**, which times you reading a sentence aloud against average typing speed (~40 WPM). Uses the browser's built-in speech recognition (Chrome, Edge, Safari). Where voice can't work (Firefox, Brave, Arc, a blocked mic), the panel says why, the tricks become tap buttons, and the speed round becomes a typing test against ~150 WPM speaking.
 7. **Billboard:** "Let's build / create / design / think something." with contact links.
 
 ## Run it
@@ -53,7 +53,7 @@ After that, every push to `main` redeploys, and every pull request gets its own 
 
 ## Stack
 
-Next.js (App Router), Three.js, GSAP. The whole experience runs client-side from `app/page.js`.
+Next.js (App Router), Three.js, GSAP, Vercel Web Analytics (enable it in the Vercel project's Analytics tab). The whole experience runs client-side from `app/page.js`.
 
 ## Photos
 

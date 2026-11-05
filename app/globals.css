@@ -333,3 +333,13 @@ body:has(#petpanel.open) #prompt { opacity: 0; pointer-events: none; }
 #pp-result p { grid-column: 1 / -1; font-size: 14px; color: #d9d5cc; margin-top: 4px; }
 .pp-note { font-size: 11px; color: #6f6b66; margin-top: 10px; }
 @media (max-width: 640px) { #petpanel { left: 16px; bottom: 16px; } }
+/* no-voice mode: no mic, tricks are taps, speed round is a typing test */
+#pp-typing { display: none; margin-top: 10px; }
+#petpanel[data-voice="off"] #pp-mic, #petpanel[data-voice="off"] #pp-heard { display: none; }
+#petpanel[data-voice="off"][data-mode="speed"] #pp-typing { display: block; }
+#pp-type {
+  width: 100%; resize: none; background: rgba(255,255,255,.04); color: #f2f2ee; border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px; padding: 10px 12px; font-size: 15px; line-height: 1.4;
+}
+#pp-type:focus { outline: none; border-color: #ff4d1f; }
+#pp-typedone { margin-top: 6px; background: #ff4d1f; color: #111; border: 0; border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; }

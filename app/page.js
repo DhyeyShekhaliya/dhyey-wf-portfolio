@@ -65,6 +65,10 @@ export default function Home() {
         <p id="pp-phrase" className="hand"></p>
         <button id="pp-mic" className="nav" aria-label="Start talking"><span>🎙</span></button>
         <p id="pp-heard" className="type" aria-live="polite"></p>
+        <div id="pp-typing">
+          <textarea id="pp-type" className="nav" rows={3} placeholder="start typing… the timer starts on your first key" aria-label="Type the phrase" />
+          <button id="pp-typedone" className="type">done ↵</button>
+        </div>
         <div id="pp-cmds" className="type"></div>
         <div id="pp-result" className="nav" aria-live="polite"></div>
         <button id="pp-new" className="type">new phrase ↻</button>
